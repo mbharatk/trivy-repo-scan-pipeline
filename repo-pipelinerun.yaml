@@ -1,0 +1,14 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  name: repo-pipelinerun
+spec:
+  pipelineRef:
+    name: repo-pipeline
+ 
+  params:
+  - name: repo-url
+    value:  ""
+  - name: TRIVY_IMAGE
+    value: docker.io/aquasec/trivy
+        

@@ -1,0 +1,21 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: repo-pipeline
+spec:
+  params:
+    - name: repo-url
+      description: "The location of repo to scan"
+      default: ""
+    - name: TRIVY_IMAGE
+      default: docker.io/aquasec/trivy
+  
+  tasks:
+    - name: scan-image
+      taskRef:
+        name: test-repo-scan
+      params:
+        - name: repo-url
+          value: $(params.repo-url)
+        - name: TRIVY_IMAGE
+          value: $(params.TRIVY_IMAGE)
